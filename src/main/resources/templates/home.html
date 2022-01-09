@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" href="/images/gerb.png"/>
+    <title> E-SUD </title>
+    <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="css/media.css"/>
+</head>
+<body>
+<div class="wrapper">
+
+    <div th:replace="fragments/header"></div>
+
+    <article>
+        <main>
+            <div class="main_p">
+                <span>
+                    <i class="material-icons mt-0 font-24">find_in_page</i> <b th:text="#{application.search.button}"></b>
+                </span>
+            </div>
+
+            <form th:action="@{/home}" method="get" >
+                <div class="form">
+                    <p th:text="#{application.search.button}"></p>
+                    <div class="form_in">
+
+                        <div>
+                            <div class="form-group">
+                                <p for="input4" th:text="#{application.case.demandantName}"></p>
+                                <input type="text" name="citizenId" class="form-control" id="input4" th:placeholder="#{application.case.demandantName}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <p align="center">
+                        <input type="submit" th:value="#{application.search}" />
+                    </p>
+                </div>
+            </form>
+        </main>
+
+        <div class="content">
+
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                <tr class="success">
+                    <th scope="col" th:text="#{application.case.demandantName}"></th>
+                    <th scope="col" th:text="#{application.case.defendantName}"></th>
+                    <th scope="col" th:text="#{application.case.demandantName}"></th>
+                    <th scope="col" th:text="#{application.case.defendantName}"></th>
+                    <th scope="col" th:text="#{application.court.name}"></th>
+                    <th scope="col" th:text="#{application.case.number}"></th>
+                </tr>
+                </thead>
+                <tbody >
+                <!--/*@thymesVar id="incompetent" type="org.undp.incompetent.models.IncompetentEntity"*/-->
+                <tr th:each="incompetent : ${data.content}">
+                    <th th:text="${incompetent.incompetentSurname}"></th>
+                    <th th:text="${incompetent.incompetentFirstname}"></th>
+                    <th th:text="${incompetent.incompetentPatronymic}"></th>
+                    <th th:text="${incompetent.incompetentBirthday}" ></th>
+                    <th th:text="${incompetent.incompetentPassport}" ></th>
+                    <th th:text="${incompetent.incompetentCity.name}" ></th>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination_content" align="center">
+                <ul class="pagination">
+                    <li th:each="i : ${#numbers.sequence(0,data.totalPages-1)}" th:classappend=" ${currentPage == i ? 'active':''}">
+                        <a  th:href="@{/home/(page=${i})}" th:text="${i}" class="navbar-link"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </article>
+    <div th:replace="fragments/footer"></div>
+</div>
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/home.js"></script>
+</body>
+</html>

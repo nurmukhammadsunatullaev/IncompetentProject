@@ -1,0 +1,19 @@
+<header xmlns:th="http://www.thymeleaf.org">
+    <div class="left">
+        <a href="/index.html"><img src="/images/gerb.png" height="72"/></a>
+        <p align="center"> <b th:text="#{application.title.part_1}"></b> <br/><b th:text="#{application.title.part_2}"></b> </p>
+    </div>
+    <div class="right">
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a href="/home">Бош сахифа</a></li>
+            <li role="presentation"><a href="#">Profile</a></li>
+            <li role="presentation"><a href="/logout">Тизимдан чиқиш</a></li>
+        </ul>
+    </div>
+</header>
+<section xmlns:th="http://www.thymeleaf.org">
+    <div class="section">
+        <p><img src="/images/flag.png" alt="#"/></p>
+        <p th:text="#{application.header}"></p>
+    </div>
+</section>

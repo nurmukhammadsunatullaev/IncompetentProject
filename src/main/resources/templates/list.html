@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div class="container" style="margin-top: 50px" >
+    <div th:replace="fragments/header"></div>
+
+    <div class="row" style="margin-top: 30px">
+        <div class="col-lg-12" >
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h2 th:text="#{incompetent.list.title}"></h2>
+                    <a th:href="@{/incompetent/report/excel}">
+                        <img width="40" height="40" th:src="@{/images/excel.png}"/>
+                        Юклаб олиш
+                    </a>
+                </div>
+
+                <div class="panel-body">
+                        <table class="table">
+                            <thead class="mdb-color darken-3">
+                                <tr class="text-white">
+                                    <th>ФИШ</th>
+                                    <th>Жинси</th>
+                                    <th>Туғилган санаси</th>
+                                    <th>Паспорт маълумоти</th>
+                                    <th>Адреси</th>
+                                    <th>Маълумотлар</th>
+                                    <th>Ўзгартириш</th>
+                                    <th>Иш кўшиш</th>
+                                    <th>Ўчириш</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="incompetentItem : ${incompetent_list}">
+
+                            <tr>
+                                <th th:text="${incompetentItem.incompetentSurname+' '+incompetentItem.incompetentFirstname+' '+incompetentItem.incompetentPatronymic}" ></th>
+                                <th th:text="${incompetentItem.incompetentSex.equals(true) ? 'эркак' : 'аёл'}" ></th>
+                                <th th:text="${incompetentItem.incompetentBirthday}" ></th>
+                                <th th:text="${incompetentItem.incompetentPassport}" ></th>
+                                <th th:text="${incompetentItem.incompetentAddress}" ></th>
+                                    <th>
+                                        <a href="#" data-toggle="collapse" th:attr="data-target='#toggle'+${incompetentItem.incompetentId} " aria-expanded="false" th:attrappend="aria-controls='toggle'+${incompetentItem.incompetentId}">
+                                            <img width="40" height="40" th:src="@{/images/view.png}"/>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a th:href="${'/incompetent/edit/'+incompetentItem.incompetentId}" >
+                                            <img width="40" height="40" th:src="@{/images/edit.png}"/>
+                                        </a>
+                                    </th>
+                                <th>
+                                    <a href="#" data-toggle="modal" th:attrappend="data-target='#myModal'+${incompetentItem.incompetentId}">
+                                        <img width="40" height="40" th:src="@{/images/add.png}"/>
+                                    </a>
+                                    <div class="modal fade" th:attrappend="id='myModal'+${incompetentItem.incompetentId}" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title" th:text="#{app.case.type.header}"></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="${'/incompetent/case/add/'+incompetentItem.incompetentId+'.html'}" method="get">
+                                                        <div class="alert alert-info" role="alert" >Маълумот киритиш</div>
+                                                        <div class="form-group">
+                                                            <label class="control-label leftMargin10 rightMargin10" scope="col"></label>
+                                                            <select class="form-control" name="caseTypeId">
+                                                                <option th:each="caseType : ${caseTypes}" th:value="${caseType.id}" th:text="${caseType.name}"></option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <button class="btn btn-lg btn-primary btn-block" type="Submit" >Қўшиш</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <a th:href="${'/incompetent/delete/'+incompetentItem.incompetentId}">
+                                        <img width="40" height="40" th:src="@{/images/delete.png}"/>
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="9">
+                                    <div class="row collapse multi-collapse" th:attr="id='toggle'+ ${incompetentItem.incompetentId}">
+                                        <div class="col-lg-12" >
+                                            <div class="panel panel-default">
+
+                                                <div class="panel-heading">
+                                                    <h3 th:text="#{case.list.title}"></h3>
+                                                </div>
+
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <thead class="mdb-color darken-3">
+                                                        <tr class="text-white">
+                                                            <th>Иш тури</th>
+                                                            <th>Суд ҳужжати чиқарилган сана</th>
+                                                            <th>Суд ҳужжати рақами</th>
+                                                            <th>Иш натижаси</th>
+                                                            <th>Ўзгартириш</th>
+                                                            <th>Ўчириш</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <th:block  th:each="caseItem : ${incompetentItem.incompetentCaseList}">
+                                                                <tr th:if="${caseItem.dateOfDataDelete == null}" th:class="${caseItem.dateOfDataDelete == null ? 'success' : 'danger'}">
+                                                                        <th th:text="${caseItem.caseTypeEntity.name}"></th>
+                                                                        <th th:text="${caseItem.judgmentDate}" ></th>
+                                                                        <th th:text="${caseItem.judgmentNumber}" ></th>
+                                                                        <th th:text="${caseItem.caseResultEntity.name}"></th>
+                                                                        <th>
+                                                                            <a th:href="${'/incompetent/case/edit/'+caseItem.incompetentCaseId}">
+                                                                                <img width="40" height="40" th:src="@{/images/edit.png}"/>
+                                                                            </a>
+                                                                        </th>
+                                                                        <th>
+                                                                            <a th:href="${'/incompetent/case/delete/'+caseItem.incompetentCaseId}">
+                                                                                <img width="40" height="40" th:src="@{/images/delete.png}"/>
+                                                                            </a>
+                                                                        </th>
+                                                                </tr>
+                                                        </th:block>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            </th:block>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer"></div>
+</div>
+</body>
+</html>

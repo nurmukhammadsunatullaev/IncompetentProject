@@ -1,0 +1,30 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: white;
+    padding: 2em 4em;
+    border-top: 1px solid #ECECEC;
+}
+
+footer div.right p a {
+    color: #007bff;
+    font-size: 15px;
+}
+
+footer div.right p span {
+    font-size: 15px;
+    letter-spacing: 0.8px;
+}
+
+footer div.left p {
+    font-size: 15px;
+}
+
+footer div.right p a, span {
+    vertical-align: middle;
+}
+
+footer div.right p img {
+    vertical-align: middle;
+}

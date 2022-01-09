@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" href="/images/gerb.png"/>
+    <title> E-SUD </title>
+    <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="css/media.css"/>
+</head>
+<body>
+<div class="wrapper">
+
+    <div th:replace="fragments/header"></div>
+
+    <div class="container">
+        <div class="alert alert-danger">
+            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+        </div>
+        <div>
+            <img src="/images/fix.gif" style="margin-bottom: 10px"  class="img-thumbnail center-block" alt="Responsive image" />
+        </div>
+
+    </div>
+
+    <div th:replace="fragments/footer"></div>
+</div>
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/home.js"></script>
+</body>
+</html>
